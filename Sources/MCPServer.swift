@@ -52,9 +52,11 @@ class FoundationModelsServer: Service, @unchecked Sendable {
             ])
         }
         await self.server.withMethodHandler(CallTool.self) { params in
+            self.logger.debug("Received tool call: \(params.name) with arguments: \(String(describing: params.arguments))")
             switch params.name {
             case "foundation-models":
                 guard let prompt = params.arguments?["prompt"]?.stringValue else {
+                    self.logger.debug("Missing prompt in arguments")
                     return .init(
                         content: [.text("prompt is required \(String(describing: params.arguments))")],
                         isError: true
@@ -63,6 +65,8 @@ class FoundationModelsServer: Service, @unchecked Sendable {
 
                 let temperature = params.arguments?["temperature"]?.doubleValue ?? 0.7
                 let maxTokens = params.arguments?["max_tokens"]?.intValue
+                
+                self.logger.debug("Processing request - prompt length: \(prompt.count), temperature: \(temperature), maxTokens: \(String(describing: maxTokens))")
 
                 // Initialize the Foundation Models session
                 let tools: [any FoundationModels.Tool] = []
@@ -84,19 +88,23 @@ class FoundationModelsServer: Service, @unchecked Sendable {
 
                 do {
                     // Generate response using FoundationModels
+                    self.logger.debug("Generating response with FoundationModels...")
                     let response = try await session.respond(to: prompt, options: options)
+                    self.logger.debug("Generated response with \(response.content.count) characters")
 
                     return .init(
                         content: [.text(response.content)],
                         isError: false
                     )
                 } catch {
+                    self.logger.error("Failed to generate text: \(error.localizedDescription)")
                     return .init(
                         content: [.text("Failed to generate text: \(error.localizedDescription)")],
                         isError: true
                     )
                 }
             default:
+                self.logger.debug("Unknown tool requested: \(params.name)")
                 return .init(content: [.text("Unknown tool")], isError: true)
             }
         }
