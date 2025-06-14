@@ -54,12 +54,16 @@ The server supports configuration through environment variables:
 
 - `SYSTEM_INSTRUCTIONS`: Set default system instructions for the AI assistant
 - `DEBUG`: Enable debug logging (any non-empty value)
+
  
 ### Dependencies
 
 - [swift-argument-parser](https://github.com/apple/swift-argument-parser): Command line argument parsing
 - [swift-sdk (MCP)](https://github.com/modelcontextprotocol/swift-sdk): Model Context Protocol implementation
 - [swift-service-lifecycle](https://github.com/swift-server/swift-service-lifecycle): Graceful service lifecycle management
+
+## TODO
+- manage some session id to keep some conversation history
 
 ## License
 
