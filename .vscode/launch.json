@@ -1,0 +1,40 @@
+{
+    "configurations": [
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:FoundationModelCli}",
+            "name": "Debug fm",
+            "program": "${workspaceFolder:FoundationModelCli}/.build/debug/fm",
+            "preLaunchTask": "swift: Build Debug fm"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:FoundationModelCli}",
+            "name": "Release fm",
+            "program": "${workspaceFolder:FoundationModelCli}/.build/release/fm",
+            "preLaunchTask": "swift: Build Release fm"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:mcp-foundation-models}",
+            "name": "Debug mcp-foundation-models",
+            "program": "${workspaceFolder:mcp-foundation-models}/.build/debug/mcp-foundation-models",
+            "preLaunchTask": "swift: Build Debug mcp-foundation-models"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:mcp-foundation-models}",
+            "name": "Release mcp-foundation-models",
+            "program": "${workspaceFolder:mcp-foundation-models}/.build/release/mcp-foundation-models",
+            "preLaunchTask": "swift: Build Release mcp-foundation-models"
+        }
+    ]
+}
